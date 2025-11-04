@@ -1,0 +1,51 @@
+<%@ page language="java" %>
+<html>
+<head>
+<title>Resume Builder</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>Welcome to Resume Builder</h1>
+<a href="resume_form.jsp">Create Your Resume</a>
+</body>
+</html>
+<%@ page language="java" %>
+<html>
+<head>
+<title>Resume Form</title>
+</head>
+<body>
+<h2>Enter Your Details</h2>
+<form action="ResumeServlet" method="post">
+  <label>Name:</label><input type="text" name="name"><br>
+  <label>Email:</label><input type="email" name="email"><br>
+  <label>Contact:</label><input type="text" name="contact"><br>
+  <label>Education:</label><textarea name="education"></textarea><br>
+  <label>Experience:</label><textarea name="experience"></textarea><br>
+  <label>Skills:</label><textarea name="skills"></textarea><br>
+  <label>Achievements:</label><textarea name="achievements"></textarea><br>
+  
+  <label>Choose Template:</label>
+  <select name="template">
+    <option value="classic">Classic</option>
+    <option value="modern">Modern</option>
+    <option value="creative">Creative</option>
+  </select><br><br>
+
+  <input type="submit" value="Generate Resume">
+</form>
+</body>
+</html>
+<%@ page import="com.resumebuilder.model.Resume" %>
+<%
+Resume resume = (Resume) request.getAttribute("resume");
+%>
+<html>
+<head><title>Preview Resume</title></head>
+<body>
+<h2>Resume Preview</h2>
+<jsp:include page="templates/<%= resume.getTemplate() %>.jsp" />
+<br>
+<a href="WEB-INF/resume.pdf" target="_blank">Download as PDF</a>
+</body>
+</html>
